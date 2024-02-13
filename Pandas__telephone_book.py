@@ -105,9 +105,9 @@ def search_entries(db):
     searched_db = pd.DataFrame()
     col_names = ["фамилия", "имя", "отчество", "название организации", "телефон рабочий",
                  "телефон личный (сотовый)"]
-    info_to_find = input("Введите через пробел какие-либо поля записи(фамилия, имя, отчество, \n"
+    info_to_find = input("Введите через запятую какие-либо поля записи(фамилия, имя, отчество, \n"
                     "название организации, телефон рабочий, телефон личный (сотовый)), \n"
-                    "которую хотите найти \n").split()
+                    "которую хотите найти \n").split(",")
      # формируем список уникальных введенных пользователем значений для поиска нужной записи/записей
     info_to_find_list = list({word.title().strip() for word in info_to_find})
     intermidiate_db = db
@@ -128,36 +128,32 @@ def edit_entry(db):
         except TypeError as e:
             print("Не найдена запись с соответстующими значениями")
         else:
-            if len(found) == 0:
-                print("Не найдена запись с соответстующими значениями")
-            else:
-                print("Найдена запись:")
-                print(found)
-                #print("found.values", found.values, type(found))
-                print("--------------------------------------------------------------------------------")
-                for row in found.values:
-1                    new_last_name = input("Введите новую фамилию (оставьте пустым, если оставить прежнюю): ").strip().title()
-                    new_first_name = input("Введите новое имя (оставьте пустым, если оставить прежнее): ").strip().title()
-                    new_middle_name = input("Введите новое отчество (оставьте пустым, если оставить прежнее): ").strip().title()
-                    new_organization = input("Введите новое название организации (оставьте пустым, если оставить прежнее): ").strip()
-                    new_work_phone = input("Введите новый рабочий телефон (оставьте пустым, если оставить прежний): ").strip()
-                    new_personal_phone = input("Введите новый личный телефон (оставьте пустым, если оставить прежний): ").strip()
+            print("Найдена запись:")
+            print(found)
+            print("--------------------------------------------------------------------------------")
+            for row in found.values:
+                new_last_name = input("Введите новую фамилию (оставьте пустым, если оставить прежнюю): ").strip().title()
+                new_first_name = input("Введите новое имя (оставьте пустым, если оставить прежнее): ").strip().title()
+                new_middle_name = input("Введите новое отчество (оставьте пустым, если оставить прежнее): ").strip().title()
+                new_organization = input("Введите новое название организации (оставьте пустым, если оставить прежнее): ").strip()
+                new_work_phone = input("Введите новый рабочий телефон (оставьте пустым, если оставить прежний): ").strip()
+                new_personal_phone = input("Введите новый личный телефон (оставьте пустым, если оставить прежний): ").strip()
 
-                    print("Введенная запись:", "\n", row)
-                    if new_last_name != "":
-                        db.loc[db['фамилия'] == row[0], ['фамилия']] = new_last_name
-                    if new_first_name != "":
-                        db.loc[db['имя'] == row[1], ['имя']] = new_first_name
-                    if new_middle_name != "":
-                        db.loc[db['отчество'] == row[2], ['отчество']] = new_middle_name
-                    if new_organization != "":
-                        db.loc[db['название организации'] == row[3], ['название организации']] = new_organization
-                    if new_work_phone != "":
-                        db.loc[db['телефон рабочий'] == row[4], ['телефон рабочий']] = new_work_phone
-                    if new_personal_phone != "":   
-                        db.loc[db['телефон личный (сотовый)'] == row[5], ['телефон личный (сотовый)']] = new_personal_phone    #"".join([fig for fig in new_personal_phone if fig in "0123456789"])
-                    if input("Для выхода из редактировния следующих НАЙДЕННЫХ записей нажмите * \n") == "*":
-                        break
+                print("Введенная запись:", "\n", row)
+                if new_last_name != "":
+                    db.loc[db['фамилия'] == row[0], ['фамилия']] = new_last_name
+                if new_first_name != "":
+                    db.loc[db['имя'] == row[1], ['имя']] = new_first_name
+                if new_middle_name != "":
+                    db.loc[db['отчество'] == row[2], ['отчество']] = new_middle_name
+                if new_organization != "":
+                    db.loc[db['название организации'] == row[3], ['название организации']] = new_organization
+                if new_work_phone != "":
+                    db.loc[db['телефон рабочий'] == row[4], ['телефон рабочий']] = new_work_phone
+                if new_personal_phone != "":
+                    db.loc[db['телефон личный (сотовый)'] == row[5], ['телефон личный (сотовый)']] = new_personal_phone   
+                if input("Для выхода из редактировния следующих НАЙДЕННЫХ записей нажмите * \n") == "*":
+                    break
         print()
         comm = input("Чтобы выйти из режима редактирования  введите * \n ,"
                      " чтобы продолжить редактирование, нажмите любой другой символ \n")
@@ -167,5 +163,3 @@ def edit_entry(db):
 
 if __name__ == "__main__":
     menu(db)
-
-
