@@ -29,7 +29,6 @@ db["телефон личный (сотовый)"] = db["телефон личн
 
 # Функция для вывода меню и обработки выбранного пункта
 def menu(db):
-    pd.set_option('display.max_rows', 5)
     print("Телефонный справочник")
     print("1. Вывод записей")
     print("2. Добавление записи")
@@ -164,7 +163,8 @@ def edit_entry(db):
                         db.loc[db['название организации'] == row[3], ['название организации']] = new_organization
                     if new_work_phone != "":
                         db.loc[db['телефон рабочий'] == row[4], ['телефон рабочий']] = new_work_phone
-                        db.loc[db['телефон личный (сотовый)'] == row[5], ['телефон личный (сотовый)']] = new_personal_phone #"".join([fig for fig in new_personal_phone if fig in "0123456789"])
+                    if new_personal_phone != "":   
+                        db.loc[db['телефон личный (сотовый)'] == row[5], ['телефон личный (сотовый)']] = new_personal_phone    #"".join([fig for fig in new_personal_phone if fig in "0123456789"])
                     if input("Для выхода из редактировния следующих НАЙДЕННЫХ записей нажмите * \n") == "*":
                         break
         print()
