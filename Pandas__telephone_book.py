@@ -12,10 +12,6 @@
 
 import os
 import pandas as pd
-import sys
-import numpy as np
-#from IPython.display import display
-
 
 
 #expand the output display to see more columns of a Pandas DataFrame
@@ -114,10 +110,6 @@ def search_entries(db):
                     "которую хотите найти \n").split()
      # формируем список уникальных введенных пользователем значений для поиска нужной записи/записей
     info_to_find_list = list({word.title().strip() for word in info_to_find})
-    #print("info_to_find_list", info_to_find_list)
-    #@@@ preliminary_db = db[db.isin(info_to_find_list)].dropna(how="all")
-    #print("preliminary_db", preliminary_db)
-    #@@@ searched_db = db.loc[db.index.intersection(preliminary_db.index)]
     intermidiate_db = db
     for feature in info_to_find_list:
         preliminary_db = db[db.isin([feature])].dropna(how="all")
@@ -144,8 +136,7 @@ def edit_entry(db):
                 #print("found.values", found.values, type(found))
                 print("--------------------------------------------------------------------------------")
                 for row in found.values:
-                    #print("row.values", row.values)
-                    new_last_name = input("Введите новую фамилию (оставьте пустым, если оставить прежнюю): ").strip().title()
+1                    new_last_name = input("Введите новую фамилию (оставьте пустым, если оставить прежнюю): ").strip().title()
                     new_first_name = input("Введите новое имя (оставьте пустым, если оставить прежнее): ").strip().title()
                     new_middle_name = input("Введите новое отчество (оставьте пустым, если оставить прежнее): ").strip().title()
                     new_organization = input("Введите новое название организации (оставьте пустым, если оставить прежнее): ").strip()
@@ -176,3 +167,5 @@ def edit_entry(db):
 
 if __name__ == "__main__":
     menu(db)
+
+
